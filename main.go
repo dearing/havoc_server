@@ -30,6 +30,7 @@ import (
 	"net/http"
 
 	"runtime"
+	"runtime/debug"
 	"strconv"
 
 	_ "net/http/pprof"
@@ -42,6 +43,7 @@ func main() {
 	router := httprouter.New()
 	router.GET("/", HandleIndex)
 	router.GET("/mem/:value", HandleMemory)
+	router.GET("/free", HandleFreeMem)
 	router.GET("/cpu/:value", HandleCPU)
 
 	go func() {
@@ -70,6 +72,11 @@ func HandleMemory(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 
 	fmt.Fprintf(w, "Mindlessly filling an array with %d indices with random bytes. Good luck!", size)
 
+}
+
+func HandleFreeMem(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	debug.FreeOSMemory()
+	fmt.Fprintf(w, "Freed.")
 }
 
 func HandleCPU(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
