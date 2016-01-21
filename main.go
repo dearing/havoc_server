@@ -21,9 +21,6 @@
 package main
 
 import (
-	//"bytes"
-	//"crypto/rand"
-
 	"encoding/base64"
 	"fmt"
 	"log"
@@ -34,12 +31,12 @@ import (
 
 	_ "net/http/pprof"
 
-	"code.google.com/p/go-uuid/uuid"
+	//"code.google.com/p/go-uuid/uuid"
 	"github.com/dearing/havoc"
 	"github.com/julienschmidt/httprouter"
 )
 
-var NAME = uuid.New()
+var NAME = GetRandomName(0)
 
 func main() {
 	router := httprouter.New()
