@@ -1,5 +1,6 @@
 HAVOC SERVER
 ============
+[![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
 Bad library, as a Server
 
