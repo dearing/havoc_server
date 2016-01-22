@@ -1,17 +1,19 @@
 os: linux
 files:
-  - source: Config/config.txt
-    destination: webapps/Config
+  - source: /
+    destination: /home/www/golang/src/github.com/dearing/havoc_server
 hooks:
   BeforeInstall:
     - location: scripts/install.sh
   AfterInstall:
-    - location: Scripts/RunResourceTests.sh
+    - location: scripts/after_install.sh
       timeout: 180
+      runas: www
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 600
+      runas: www
   ValidateService:
     - location: scripts/validate.sh
       timeout: 600
-      runas: web
+      runas: www
