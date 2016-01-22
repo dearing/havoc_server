@@ -1,0 +1,17 @@
+os: linux
+files:
+  - source: Config/config.txt
+    destination: webapps/Config
+hooks:
+  BeforeInstall:
+    - location: scripts/install.sh
+  AfterInstall:
+    - location: Scripts/RunResourceTests.sh
+      timeout: 180
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 600
+  ValidateService:
+    - location: scripts/validate.sh
+      timeout: 600
+      runas: web
