@@ -2,12 +2,12 @@ HAVOC SERVER
 ============
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-This is a web server wrapping [havoc](https://github.com/dearing/havoc).
+This is a web server wrapping [havoc].
 
 ABOUT
 -----
 
-I find it tedious to always hunt down something basic enough to demonstrate a working deployment and also be useful enough to tinker with when it is up.  So this is born, a replacement for the ubiquitous [hello_world](https://github.com/search?q=hello_world&type=Repositories&utf8=%E2%9C%93).  Out of the box it offers [http/pprof](https://golang.org/pkg/net/http/pprof/) on :8081 and listens for API requests on :8080. Which ought to be configurable in the future. :coffee: 
+I find it tedious to always hunt down something basic enough to demonstrate a working deployment and also be useful enough to tinker with when it is up.  So this is born, a replacement for the ubiquitous [hello_world].  Out of the box it offers [http/pprof] on :8081 and listens for API requests on :8080. Which ought to be configurable in the future. :coffee: 
 
 The only real DATA is a byte array set to the size and acted on by the api itself:
 
@@ -61,3 +61,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
+[havoc]: https://github.com/dearing/havoc
+[issues]: https://github.com/dearing/havoc_server/issues
+[http/pprof]: https://golang.org/pkg/net/http/pprof
+[hello_world]: https://github.com/search?q=hello_world&type=Repositories&utf8=%E2%9C%93
