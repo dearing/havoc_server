@@ -26,7 +26,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-
+	"runtime"
 	"strconv"
 
 	_ "net/http/pprof"
@@ -39,15 +39,20 @@ import (
 var NAME = GetRandomName(0)
 
 func main() {
+
+	procs := runtime.NumCPU()
+	runtime.GOMAXPROCS(procs)
+
 	router := httprouter.New()
 	router.GET("/", HandleIndex)
-
-	router.GET("/mem/:value", HandleMemory)
-
 	router.GET("/reset", HandleReset)
 	router.GET("/fill", HandleFill)
 	router.GET("/kill", HandleKill)
-	router.GET("/forever", HandleForever)
+
+	router.GET("/procs/:value", HandleProcs)
+	router.GET("/mem/:value", HandleMemory)
+
+	log.Printf("%s : starting.", NAME)
 
 	go func() {
 		log.Println(http.ListenAndServe(":8081", nil))
@@ -66,7 +71,7 @@ func HandleIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 func HandleMemory(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	size, err := strconv.Atoi(ps.ByName("value"))
 	if err != nil {
-		fmt.Fprintf(w, "%s: error in parse: %s", NAME, err)
+		fmt.Fprintf(w, "%s: error in parse: %s\n", NAME, err)
 		return
 	}
 
@@ -74,35 +79,43 @@ func HandleMemory(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 		havoc.SetMemory(size)
 	}()
 
-	fmt.Fprintf(w, "%s: %d indices set", NAME, size)
+	fmt.Fprintf(w, "%s: %d indices set.\n", NAME, size)
 
 }
 
 func HandleFill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	havoc.FillData()
-	fmt.Fprintf(w, "%s: Burning through the random.", NAME)
+	fmt.Fprintf(w, "%s: Burning through the random.\n", NAME)
 }
 
 func HandleKill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprintf(w, "%s: I hardly knew thee.", NAME)
-
+	fmt.Fprintf(w, "%s: I hardly knew thee.\n", NAME)
 	os.Exit(0)
 }
 
 func HandleReset(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	havoc.ResetMemory()
-	fmt.Fprintf(w, "%s: Reset.", NAME)
+	fmt.Fprintf(w, "%s: Reset.\n", NAME)
 }
 
 func HandleFreeMem(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	havoc.FreeMemory()
-	fmt.Fprintf(w, "%s: Freed.", NAME)
+	fmt.Fprintf(w, "%s: Freed.\n", NAME)
 }
 
-func HandleForever(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func HandleProcs(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
-	go func() {
-		havoc.Forever()
-	}()
-	fmt.Fprintf(w, "%s: Forever is a long time.", NAME)
+	procs, err := strconv.Atoi(ps.ByName("value"))
+	if err != nil {
+		fmt.Fprintf(w, "%s: error in parse: %s\n", NAME, err)
+		return
+	}
+
+	for i := 0; i < procs; i++ {
+		go func() {
+			havoc.Forever()
+		}()
+	}
+
+	fmt.Fprintf(w, "%s: %d proccessors engaged.\n", NAME, procs)
 }
