@@ -117,5 +117,5 @@ func HandleProcs(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		}()
 	}
 
-	fmt.Fprintf(w, "%s: %d proccessors engaged.\n", NAME, procs)
+	fmt.Fprintf(w, "%s: %d of %d processors engaged.\n", NAME, procs, runtime.NumCPU())
 }
