@@ -49,7 +49,6 @@ func main() {
 	router.GET("/data/reset", HandleDataReset)
 	router.GET("/data/set/:value", HandleDataSet)
 	router.GET("/data/fill", HandleDataFill)
-	router.GET("/data/fill/zero", HandleDataFillZero)
 	router.GET("/data/fill/crypto", HandleDataFillCrypto)
 
 	router.GET("/procs/:value", HandleProcs)
@@ -100,11 +99,6 @@ func HandleDataReset(w http.ResponseWriter, r *http.Request, _ httprouter.Params
 func HandleDataFill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	havoc.DataFill()
 	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with ones.\n", NAME, len(havoc.Data))
-}
-
-func HandleDataFillZero(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	havoc.DataFillZero()
-	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with zeroes.\n", NAME, len(havoc.Data))
 }
 
 func HandleDataFillCrypto(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
