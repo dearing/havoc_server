@@ -99,17 +99,17 @@ func HandleDataReset(w http.ResponseWriter, r *http.Request, _ httprouter.Params
 
 func HandleDataFill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	havoc.DataFill()
-	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with ones.\n", NAME)
+	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with ones.\n", len(havoc.Data), NAME)
 }
 
 func HandleDataFillZero(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	havoc.DataFillZero()
-	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with zeroes.\n", NAME)
+	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with zeroes.\n", len(havoc.Data), NAME)
 }
 
 func HandleDataFillCrypto(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	havoc.DataFillCrypto()
-	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with random data.\n", NAME)
+	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with random data.\n", len(havoc.Data), NAME)
 }
 
 // HANDLES - CPU
