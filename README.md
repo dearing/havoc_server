@@ -2,7 +2,7 @@ HAVOC SERVER
 ============
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-This is a web server wrapping [havoc].
+*This is a web server wrapping the [havoc] library.*
 
 ABOUT
 -----
