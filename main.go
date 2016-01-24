@@ -31,7 +31,6 @@ import (
 
 	_ "net/http/pprof"
 
-	//"code.google.com/p/go-uuid/uuid"
 	"github.com/dearing/havoc"
 	"github.com/julienschmidt/httprouter"
 )
@@ -45,14 +44,17 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/", HandleIndex)
-	router.GET("/reset", HandleReset)
-	router.GET("/fill", HandleFill)
 	router.GET("/kill", HandleKill)
 
-	router.GET("/procs/:value", HandleProcs)
-	router.GET("/mem/:value", HandleMemory)
+	router.GET("/data/reset", HandleDataReset)
+	router.GET("/data/set/:value", HandleDataSet)
+	router.GET("/data/fill", HandleDataFill)
+	router.GET("/data/fill/zero", HandleDataFillZero)
+	router.GET("/data/fill/crypto", HandleDataFillCrypto)
 
-	log.Printf("%s : starting.", NAME)
+	router.GET("/procs/:value", HandleProcs)
+
+	log.Printf("%s : starting.\n", NAME)
 
 	go func() {
 		log.Println(http.ListenAndServe(":8081", nil))
@@ -68,7 +70,14 @@ func HandleIndex(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Fprint(w, base64.StdEncoding.EncodeToString(havoc.Data))
 }
 
-func HandleMemory(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func HandleKill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Fprintf(w, "%s: I hardly knew thee.\n", NAME)
+	os.Exit(0)
+}
+
+// HANDLES - DATA
+
+func HandleDataSet(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	size, err := strconv.Atoi(ps.ByName("value"))
 	if err != nil {
 		fmt.Fprintf(w, "%s: error in parse: %s\n", NAME, err)
@@ -76,32 +85,34 @@ func HandleMemory(w http.ResponseWriter, r *http.Request, ps httprouter.Params) 
 	}
 
 	go func() {
-		havoc.SetMemory(size)
+		havoc.DataSet(size)
 	}()
 
 	fmt.Fprintf(w, "%s: %d indices set.\n", NAME, size)
 
 }
 
-func HandleFill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	havoc.FillData()
-	fmt.Fprintf(w, "%s: Burning through the random.\n", NAME)
-}
-
-func HandleKill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprintf(w, "%s: I hardly knew thee.\n", NAME)
-	os.Exit(0)
-}
-
-func HandleReset(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	havoc.ResetMemory()
+func HandleDataReset(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	havoc.DataReset()
 	fmt.Fprintf(w, "%s: Reset.\n", NAME)
 }
 
-func HandleFreeMem(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	havoc.FreeMemory()
-	fmt.Fprintf(w, "%s: Freed.\n", NAME)
+func HandleDataFill(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	havoc.DataFill()
+	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with ones.\n", NAME)
 }
+
+func HandleDataFillZero(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	havoc.DataFillZero()
+	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with zeroes.\n", NAME)
+}
+
+func HandleDataFillCrypto(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	havoc.DataFillCrypto()
+	fmt.Fprintf(w, "%s: Filling Data, (%d) bytes, with random data.\n", NAME)
+}
+
+// HANDLES - CPU
 
 func HandleProcs(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 

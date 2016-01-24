@@ -13,12 +13,14 @@ The only real DATA is a byte array set to the size and acted on by the api itsel
 
 url | affect
 :---- | :------
-/          | see the generated name and base64 of the current DATA array
-/kill      | flat out exit
-/mem/*n*   | increase DATA to *n* bytes
-/fill      | fill DATA with cryto's random (kinda intensive)
-/reset     | reallocate DATA as 0 and tell the vm to release what memory it feels like
-/procs/*n* | spin up *n* goroutines running forever (simulate cpu work per core)
+/                 | see the generated name and base64 of the current DATA array
+/data/fill        | fill DATA with 1's
+/data/fill/crypto | fill DATA with cryto's random (kinda intensive)
+/data/fill/zero   | fill DATA with 0's
+/data/reset       | reallocate DATA as 0 and tell the vm to release what memory it feels like
+/data/set/*n*     | increase DATA to *n* bytes
+/kill             | flat out exit
+/procs/*n*        | spin up *n* goroutines running forever (simulate cpu work per core)
 
 
 TODO & Help Wanted
