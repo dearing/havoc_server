@@ -2,7 +2,23 @@ HAVOC SERVER
 ============
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-Bad library, as a Server
+This is a web server wrapping [havoc](https://github.com/dearing/havoc).
+
+ABOUT
+-----
+
+I find it tedious to always hunt down something basic enough to demonstrate a working deployment and also be useful enough to tinker with when it is up.  So this is born, a replacement for the ubiquitous [hello_world](https://github.com/search?q=hello_world&type=Repositories&utf8=%E2%9C%93).  Out of the box it offers [http/pprof](https://golang.org/pkg/net/http/pprof/) on :8081 and listens for API requests on :8080. Which ought to be configurable in the future. :coffee: 
+
+The only real data is a byte array set to the size and acted on by the api itself:
+
+url | affect
+:---- | :------
+/          | see the generated name and base64 of the current DATA array
+/kill      | flat out exit
+/mem/*n*   | increase data to *n* bytes
+/fill      | fill memory with cryto's random (kinda intensive)
+/reset     | re-alloc DATA as 0 and tell the vm to release what memory it feels like
+/procs/*n* | spin up *n* goroutines running forever (simulate cpu work per core)
 
 
 TODO & Help Wanted
