@@ -2,6 +2,8 @@ HAVOC SERVER
 ============
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
+[![Build Status](https://dearing.link/api/badges/dearing/havoc_server/status.svg)](https://dearing.link/dearing/havoc_server)
+
 *This is a web server wrapping the [havoc] library.*
 
 ABOUT
