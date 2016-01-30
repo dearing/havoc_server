@@ -1,0 +1,27 @@
+matrix:
+  GO_VERSION:
+    - 1.6
+    - 1.5
+build:
+  image: golang:$$GO_VERSION
+  commands:
+    - go get
+    - go build
+    - go test -cover -bench=.
+
+notify:
+  slack_blame:
+    token: $$SLACK_TOKEN
+    channel: "notifications"
+    success:
+      username: "Drone"
+      icon: ":simple_smile:"
+      message: "The build is fixed!"
+#      image_attachments:
+#        - "http://i.imgur.com/TP4PIxc.jpg"
+    failure:
+      username: "Drone"
+      icon: ":rage:"
+      message: "The build is broken!"
+#      image_attachments:
+#        - "http://cdn.meme.am/instances/51000361.jpg"
