@@ -116,6 +116,8 @@ func HandleProcs(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 
+	runtime.GOMAXPROCS(procs)
+
 	for i := 0; i < procs; i++ {
 		go func() {
 			havoc.Forever()
