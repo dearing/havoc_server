@@ -4,7 +4,6 @@ FROM scratch
 MAINTAINER Jacob Dearing <jacob.dearing@gmail.com>
 
 ADD havoc_server havoc_server
-ENV PORT 8000
-EXPOSE 80
+EXPOSE 8080 8081
 
 CMD ["/havoc_server"]
