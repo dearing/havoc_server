@@ -1,8 +1,8 @@
 #!/bin/bash
 
-result=$(curl -s http://localhost:8080/hello/)
+result=$(curl -s http://localhost:8080/wtf/)
 
-if [[ "$result" =~ "name" ]]; then
+if [[ "$result" =~ "404" ]]; then
     exit 0
 else
     exit 1
