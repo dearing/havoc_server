@@ -1,7 +1,3 @@
 #!/bin/bash
 
-yum install -y golang
-mkdir -p /srv/http/
-
-useradd www -m -r
-
+cp havoc_server_linux_amd64 /opt/havoc
