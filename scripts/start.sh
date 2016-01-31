@@ -1,3 +1,3 @@
 #!/bin/bash
 
-havoc_server &
+/etc/init.d/havoc start
