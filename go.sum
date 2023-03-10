@@ -1,0 +1,4 @@
+github.com/dearing/havoc v0.0.0-20180807054734-d62484658ed2 h1:mQDnziBKyscOuW25se5BmqV7rEUaz6I0rAofpLcxX28=
+github.com/dearing/havoc v0.0.0-20180807054734-d62484658ed2/go.mod h1:kDJ2FbvpatMjsVzklS7L1PS56QrvXHobV09Ie3CygxM=
+github.com/julienschmidt/httprouter v1.3.0 h1:U0609e9tgbseu3rBINet9P48AI/D3oJs4dN7jwJOQ1U=
+github.com/julienschmidt/httprouter v1.3.0/go.mod h1:JR6WtHb+2LUe8TCKY3cZOxFyyO8IZAc4RVcycCCAKdM=
